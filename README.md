@@ -1,24 +1,21 @@
-# install
+# 安装
 
 ```
 pnpm i
 npm run build
 ```
 
-npm run build 会 compile source files in src directory to dist
-
-then make a hardlink to dist/index.cjs by run
+npm run build 会将源码文件编译到 dist 目录，之后通过将 dist/index.cjs 创建一个硬链接指向 phoenix 的配置文件，即可完成。
+创建硬链接的命令如下，注意应在当前项目根目录下执行
 
 ```
-ln $(pwd)/dist/index.cjs ~/.phoenix.js
+ln -f $(pwd)/dist/index.cjs ~/.phoenix.js
 ```
 
-tips: do not run phoenix first, or it will create a phoenix.js at ~/.phoenix.js, witch make ln fail with file exists
-
-# develop
+# 开发
 
 ```
 npm run dev:watch
 ```
 
-this will start a watch mode develop environment, compile to ~/.phoenix.js when source file has change.
+这会启动一个开发环境，当你更改了源码，会实时的编译到 dist 目录。
