@@ -1,19 +1,3 @@
-// 定义调整步长和调整间隔
-const STEP = 20
-
-// 定义计时器变量
-let leftTimer: Parameters<typeof clearInterval>[0] = undefined
-
-// 获取窗口在屏幕中的相对位置
-function getWindowPosition(window: Window) {
-  const frame = window.frame()
-  const screen = window.screen().flippedVisibleFrame()
-  const centerX = frame.x + frame.width / 2
-  const screenCenterX = screen.x + screen.width / 2
-
-  return centerX < screenCenterX ? 'left' : 'right'
-}
-
 function adjustWindowWidth(forward: 'left' | 'right') {
   const win = Window.focused()
   if (!win) return
@@ -23,7 +7,7 @@ function adjustWindowWidth(forward: 'left' | 'right') {
   const frameCenterX = frame.x + frame.width / 2
   const screenCenterX = screen.x + screen.width / 2
 
-  const deta = 20
+  const deta = Math.floor(screen.width / 20)
   const minWidth = 50
 
   if (forward === 'left') {
@@ -60,12 +44,64 @@ function adjustWindowWidth(forward: 'left' | 'right') {
   win.setFrame(frame)
 }
 
-// 绑定快捷键
+function adjustWindowHeight(forward: 'up' | 'down') {
+  const win = Window.focused()
+  if (!win) return
+  const frame = win.frame()
+  const screen = win.screen().flippedVisibleFrame()
+
+  const frameCenterY = frame.y + frame.height / 2
+  const screenCenterY = screen.y + screen.height / 2
+
+  const deta = Math.floor(screen.height / 20)
+  const minHeight = 50
+
+  if (forward === 'up') {
+    // 左移
+    if (frame.y === screen.y || frameCenterY < screenCenterY) {
+      const destHeight = Math.max(frame.height - deta, minHeight)
+      const realDeta = frame.height - destHeight
+      frame.height -= realDeta
+      // 动右边
+    } else {
+      // 动左边
+      const destY = Math.max(frame.y - deta, screen.y)
+      const realY = frame.y - destY
+      frame.y -= realY
+      frame.height += realY
+    }
+  } else {
+    // 右移
+    if ((frame.y === screen.y && frame.height === screen.height) || frameCenterY >= screenCenterY) {
+      const macDown = Math.min(frame.y + frame.height, screen.height)
+      // 动左边
+      const destY = Math.min(frame.y + deta, macDown - minHeight, screen.y + screen.height)
+      const realY = destY - frame.y
+      frame.y += realY
+      frame.height -= realY
+    } else {
+      // 动右边
+      const destHeight = Math.min(frame.height + deta, screen.height)
+      const realDeta = destHeight - frame.height
+      frame.height += realDeta
+    }
+  }
+
+  win.setFrame(frame)
+}
+
 Key.on('left', ['alt', 'shift'], () => {
   adjustWindowWidth('left')
 })
 
-// 绑定快捷键
 Key.on('right', ['alt', 'shift'], () => {
   adjustWindowWidth('right')
+})
+
+Key.on('up', ['alt', 'shift'], () => {
+  adjustWindowHeight('up')
+})
+
+Key.on('down', ['alt', 'shift'], () => {
+  adjustWindowHeight('down')
 })
