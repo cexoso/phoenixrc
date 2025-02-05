@@ -1,11 +1,9 @@
 import './adjust-window'
 import './launch-app'
 import './move-window'
+import { showModal } from './modal'
 
-Modal.build({
-  duration: 0.8,
-  weight: 48,
-  appearance: 'light',
-  icon: App.get('Phoenix')?.icon(),
+showModal({
   text: 'hello Phoenix!',
-}).show()
+  icon: App.get('Phoenix')?.icon(),
+})
