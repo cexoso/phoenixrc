@@ -84,7 +84,7 @@ Key.on('m', ['alt'], () => {
 })
 
 Key.on('v', ['alt'], () => {
-  focusOrLaunch('com.microsoft.VSCode')
+  focusOrLaunch('Code')
 })
 
 Key.on('u', ['alt'], () => {
