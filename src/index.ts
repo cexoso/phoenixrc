@@ -1,3 +1,4 @@
+import './adjust-window'
 // appName 是应用在 macOS 上的名称，可以使用 ls /Applications 来查看目前 mac 上存在的应用
 // 你会看到类型 Google Chrome.app 格式的目录名，如果你希望唤起这个应用, 可以使用
 // focusOrLaunch("Google Chrome")
