@@ -28,6 +28,6 @@ export const showModal = (opts: {
     },
     appearance: 'light',
     icon: App.get('Phoenix')?.icon(),
-    text: 'hello Phoenix!',
+    text: opts.text
   }).show()
 }
