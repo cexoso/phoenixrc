@@ -1,4 +1,3 @@
-
 // 定义布局单位
 const LEFT_HALF = { x: 0, y: 0, width: 0.5, height: 1 }
 const RIGHT_HALF = { x: 0.5, y: 0, width: 0.5, height: 1 }
@@ -25,7 +24,6 @@ function moveWindowToUnit(
 Key.on('left', ['command', 'alt'], () => {
   const win = Window.focused()
   moveWindowToUnit(win, LEFT_HALF)
-  Phoenix.notify('No active window')
 })
 
 // 右半屏
@@ -66,10 +64,9 @@ function getFocusedScreen(isPre: boolean) {
   if (!window) return
   const screen = window.screen()
   if (isPre) {
-    // mac 是从右向左数的，但是我习惯从左向右数
-    return { window, screen: screen.next() }
+    return { window, screen: screen.previous() }
   }
-  return { window, screen: screen.previous() }
+  return { window, screen: screen.next() }
 }
 
 Key.on('left', ['command', 'alt', 'control'], () => {

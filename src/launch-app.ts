@@ -1,3 +1,4 @@
+// TODO: 在激活的应用前展示一个图标，否则我很难关注到被同一个应用不同窗口到底谁被激活了
 let lastWindow: Window | undefined = undefined
 let timerHandler: number | undefined = undefined
 
