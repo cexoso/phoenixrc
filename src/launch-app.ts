@@ -49,11 +49,11 @@ function focusOrLaunch(appNameOrBundleId: string) {
 }
 
 Key.on('i', ['command'], () => {
-  focusOrLaunch('Alacritty')
+  focusOrLaunch('Ghostty')
 })
 
 Key.on('i', ['alt'], () => {
-  focusOrLaunch('Ghostty')
+  focusOrLaunch('Alacritty')
 })
 
 Key.on('r', ['alt'], () => {
