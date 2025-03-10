@@ -92,6 +92,10 @@ Key.on('u', ['alt'], () => {
   focusOrLaunch('飞书会议')
 })
 
+Key.on('t', ['alt'], () => {
+  focusOrLaunch('trae')
+})
+
 Key.on('l', ['command', 'shift'], () => {
   Phoenix.reload()
 })
